@@ -14,7 +14,11 @@ function factorial(num) {
  * newCounter(); // 2
  */
 function counter() {
-
+  let count = 0;
+  return function inner() {
+    count += 1;
+    return count;
+  };
 }
 
 // Q3 (*)
@@ -22,11 +26,21 @@ function counter() {
 // `increment` should increment a counter variable in closure scope and return it.
 // `decrement` should decrement the counter variable and return it.
 function counterFactory() {
-
+  let count = 0;
+  return {
+    increment: () => {
+      count += 1;
+      return count;
+    },
+    decrement: () => {
+      count -= 1;
+      return count;
+    },
+  };
 }
 
 // Q4 (*)
-// Return a true or false for wether a triangle can be formed using the three lines
+// Return a true or false for whether a triangle can be formed using the three lines
 function isTriangle(a, b, c) {
 
 }
@@ -35,7 +49,12 @@ function isTriangle(a, b, c) {
 // Should return a function that invokes `cb`.
 // The returned function should only allow `cb` to be invoked `n` times.
 function limitFunctionCallCount(cb, n) {
-
+  let invoke = 0;
+  return function inner(...args) {
+    invoke += 1;
+    if (invoke <= n) return cb(...args);
+    return null;
+  };
 }
 
 // Q6 (*)
@@ -46,7 +65,16 @@ function limitFunctionCallCount(cb, n) {
 // then it should return the cached result and not invoke `cb` again.
 // `cb` should only ever be invoked once for a given set of arguments.
 function cacheFunction(cb) {
-
+  const arg = [];
+  const result = [];
+  return function inner(n) {
+    if (n in arg) {
+      return result[Array.indexOf(arg[n])];
+    }
+    arg.push(n);
+    result.push(cb(n));
+    return cb(n);
+  };
 }
 
 /** Q7 (*)
@@ -57,7 +85,6 @@ function cacheFunction(cb) {
  *
  */
 function applyOperator() {
-
 }
 
 /** Q8 (*)

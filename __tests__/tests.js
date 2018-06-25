@@ -124,7 +124,7 @@ describe('isOdd', () => {
   });
 });
 
-describe('limitFunctionCallCount', () => {
+describe.only('limitFunctionCallCount', () => {
   it('should return a function', () => {
     expect(typeof limitFunctionCallCount()).toBe('function');
   });
